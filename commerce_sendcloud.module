@@ -384,8 +384,9 @@ function commerce_sendcloud_create_label($order) {
           // Check if our order contains
           // all the data we need.
           $order_wrapper = entity_metadata_wrapper('commerce_order', $order->order_number);
-          // Get the shipping address.
+          // Get the shipping address and telephone number.
           $shipping = $order_wrapper->commerce_customer_shipping->commerce_customer_address->value();
+          $telephone = $order_wrapper->commerce_customer_shipping->field_telephone->value();
           // Get subdata.
           if (!empty($shipping['thoroughfare']) && !empty($shipping['premise'])) {
             // Check if the thoroughfare contains a number..
@@ -416,7 +417,6 @@ function commerce_sendcloud_create_label($order) {
               }
 
               // Full api call.
-              // @TODO: create telephone field.
               $parcel = $sendcloud_api->parcels->create(
                 array(
                   'name' => $shipping['first_name'] . ' ' . $shipping['last_name'],
@@ -425,7 +425,7 @@ function commerce_sendcloud_create_label($order) {
                   'house_number' => $shipping['premise'],
                   'city' => $shipping['locality'],
                   'postal_code' => str_replace(' ', '', $shipping['postal_code']),
-                  'telephone' => '',
+                  'telephone' => $telephone,
                   'email' => $order->mail,
                   'country' => $shipping['country'],
                   'requestShipment' => $requestShipment,

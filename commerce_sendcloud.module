@@ -475,7 +475,7 @@ function commerce_sendcloud_create_label($order) {
             }
             catch (Exception $e) {
               // Send message and log it.
-              drupal_set_message(t('Sendcloud could not create a parcel.'), 'error');
+              drupal_set_message(t('We are sorry, the order was completed, but your shipping details contained an error <br> Please contact us with the ordernumber below.'), 'error');
               watchdog(
                 'SendCloud',
                 'Error when creating parcel: <pre>' . $e . '</pre>',

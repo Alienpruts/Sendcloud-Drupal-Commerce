@@ -419,7 +419,7 @@ function commerce_sendcloud_create_label($order) {
               // @TODO: create telephone field.
               $parcel = $sendcloud_api->parcels->create(
                 array(
-                  'name' => $shipping['name_line'],
+                  'name' => $shipping['first_name'] . ' ' . $shipping['last_name'],
                   'company_name' => '',
                   'address' => $shipping['thoroughfare'],
                   'house_number' => $shipping['premise'],
